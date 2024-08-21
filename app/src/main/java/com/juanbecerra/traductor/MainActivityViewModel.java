@@ -4,9 +4,14 @@ import android.app.Application;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class MainActivityViewModel extends AndroidViewModel {
     ///private MutableLiveData<String> mMensaje;
@@ -16,10 +21,12 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
+        palabras =new HashMap<>();
         palabras.put("perro","dog");
         palabras.put("gato","cat");
         palabras.put("conejo","rabbit");
 
+        imagenes = new HashMap<>();
         imagenes.put("perro",R.drawable.perro);
         imagenes.put("gato",R.drawable.gato);
         imagenes.put("conejo",R.drawable.conejo);
@@ -45,10 +52,14 @@ public class MainActivityViewModel extends AndroidViewModel {
                 intent.putExtra("imagenPath", path);
 
 
+
+
             }else{
                 intent.putExtra("traduccion","palabra no encontrada");
                 intent.putExtra("imagenPath",R.drawable.no);
+
             }
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         getApplication().startActivity(intent);
     }
 
